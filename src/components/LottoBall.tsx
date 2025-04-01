@@ -1,6 +1,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface LottoBallProps {
   number: number;
@@ -21,6 +22,8 @@ const LottoBall: React.FC<LottoBallProps> = ({
   className,
   animated = false,
 }) => {
+  const isMobile = useIsMobile();
+  
   // Determine random color for balls
   const randomColor = React.useMemo(() => {
     const colors = ["purple", "pink", "blue"];
@@ -29,10 +32,19 @@ const LottoBall: React.FC<LottoBallProps> = ({
 
   const actualColor = color === "random" ? randomColor : color;
 
-  const sizeClasses = {
-    sm: "w-10 h-10 text-sm",
-    md: "w-14 h-14 text-lg",
-    lg: "w-20 h-20 text-2xl",
+  // Adjust size based on mobile view
+  const getSize = () => {
+    if (isMobile) {
+      if (size === "lg") return "w-16 h-16 text-xl";
+      if (size === "md") return "w-12 h-12 text-md";
+      return "w-8 h-8 text-xs";
+    }
+    
+    return {
+      sm: "w-10 h-10 text-sm",
+      md: "w-14 h-14 text-lg",
+      lg: "w-20 h-20 text-2xl",
+    }[size];
   };
 
   const colorClasses = {
@@ -51,7 +63,7 @@ const LottoBall: React.FC<LottoBallProps> = ({
     <div
       className={cn(
         "lotto-ball",
-        sizeClasses[size],
+        getSize(),
         colorClasses[actualColor as keyof typeof colorClasses],
         animated && "animate-bounce-in", 
         selected && !animated && "scale-110",

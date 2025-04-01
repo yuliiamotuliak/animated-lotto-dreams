@@ -84,6 +84,7 @@
   body {
     @apply bg-background text-foreground transition-colors duration-300;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 }
 
@@ -100,12 +101,20 @@
   }
   
   .confetti {
-    @apply fixed w-4 h-4 rounded-sm animate-confetti;
+    @apply fixed w-2 h-2 sm:w-4 sm:h-4 rounded-sm animate-confetti;
     z-index: 50;
     pointer-events: none;
   }
   
   .lotto-gradient {
     @apply bg-gradient-to-br from-lotto-purple via-lotto-pink to-lotto-blue dark:from-lotto-purple/80 dark:via-lotto-pink/80 dark:to-lotto-blue/80;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    .container {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
   }
 }

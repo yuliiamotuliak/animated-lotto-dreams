@@ -4,6 +4,7 @@ import LottoNumberSelector from "./LottoNumberSelector";
 import LottoResults from "./LottoResults";
 import LottoHistory from "./LottoHistory";
 import { Card, CardContent } from "@/components/ui/card";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface LottoTicket {
   id: number;
@@ -17,6 +18,7 @@ const LottoGame: React.FC = () => {
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
   const [tickets, setTickets] = useState<LottoTicket[]>([]);
   const [winningNumbers, setWinningNumbers] = useState<number[]>([]);
+  const isMobile = useIsMobile();
 
   const handleSelectionComplete = (numbers: number[]) => {
     setSelectedNumbers(numbers.sort((a, b) => a - b));
@@ -50,10 +52,10 @@ const LottoGame: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Card className="w-full max-w-4xl mx-auto mb-10 overflow-hidden">
-        <div className="lotto-gradient h-3" />
-        <CardContent className="p-6 sm:p-8">
+    <div className="container mx-auto px-0 sm:px-4 py-4 sm:py-8">
+      <Card className="w-full max-w-4xl mx-auto mb-6 sm:mb-10 overflow-hidden">
+        <div className="lotto-gradient h-2 sm:h-3" />
+        <CardContent className={isMobile ? "p-3 sm:p-4" : "p-6 sm:p-8"}>
           {gameState === "selecting" ? (
             <LottoNumberSelector
               maxNumbers={49}

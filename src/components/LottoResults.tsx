@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import LottoBall from "./LottoBall";
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface LottoResultsProps {
   playerNumbers: number[];
@@ -17,6 +18,7 @@ const LottoResults: React.FC<LottoResultsProps> = ({
   const [revealedCount, setRevealedCount] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
   const [matchedNumbers, setMatchedNumbers] = useState<number[]>([]);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Generate random winning numbers
@@ -57,7 +59,10 @@ const LottoResults: React.FC<LottoResultsProps> = ({
     const confetti = [];
     const colors = ["bg-lotto-purple", "bg-lotto-pink", "bg-lotto-blue", "bg-yellow-400", "bg-green-400"];
     
-    for (let i = 0; i < 50; i++) {
+    // Reduce number of confetti particles on mobile for better performance
+    const particleCount = isMobile ? 25 : 50;
+    
+    for (let i = 0; i < particleCount; i++) {
       const left = `${Math.random() * 100}%`;
       const color = colors[Math.floor(Math.random() * colors.length)];
       const delay = `${Math.random() * 3}s`;
@@ -102,31 +107,31 @@ const LottoResults: React.FC<LottoResultsProps> = ({
     <div className="w-full max-w-3xl mx-auto text-center">
       {renderConfetti()}
       
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-4">Winning Numbers</h2>
-        <div className="flex justify-center flex-wrap gap-3 mb-6">
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Winning Numbers</h2>
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
           {winningNumbers.map((number, index) => (
             <LottoBall
               key={number}
               number={number}
               selected={true}
               animated={index < revealedCount}
-              size="lg"
+              size={isMobile ? "md" : "lg"}
               color="purple"
             />
           ))}
         </div>
       </div>
 
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-4">Your Numbers</h2>
-        <div className="flex justify-center flex-wrap gap-3">
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Your Numbers</h2>
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
           {playerNumbers.map((number) => (
             <LottoBall
               key={number}
               number={number}
               selected={matchedNumbers.includes(number)}
-              size="md"
+              size="sm"
               color={matchedNumbers.includes(number) ? "purple" : "blue"}
             />
           ))}
@@ -134,16 +139,16 @@ const LottoResults: React.FC<LottoResultsProps> = ({
       </div>
 
       {revealedCount === winningNumbers.length && (
-        <div className="mt-8 animate-bounce-in">
-          <div className="text-xl font-bold mb-2 flex items-center justify-center">
-            <Star className="text-yellow-400 mr-2" />
+        <div className="mt-6 sm:mt-8 animate-bounce-in">
+          <div className="text-lg sm:text-xl font-bold mb-2 flex items-center justify-center">
+            <Star className="text-yellow-400 mr-2 h-4 w-4 sm:h-5 sm:w-5" />
             <span>{getPrizeMessage()}</span>
-            <Star className="text-yellow-400 ml-2" />
+            <Star className="text-yellow-400 ml-2 h-4 w-4 sm:h-5 sm:w-5" />
           </div>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
             You matched {matchedNumbers.length} out of 6 numbers
           </p>
-          <Button onClick={onPlayAgain} size="lg">
+          <Button onClick={onPlayAgain} size={isMobile ? "default" : "lg"}>
             Play Again
           </Button>
         </div>

@@ -36,9 +36,15 @@ const LottoBall: React.FC<LottoBallProps> = ({
   };
 
   const colorClasses = {
-    purple: selected ? "bg-lotto-purple text-white" : "bg-lotto-light-purple text-lotto-purple border-2 border-lotto-purple",
-    pink: selected ? "bg-lotto-pink text-white" : "bg-pink-100 text-lotto-pink border-2 border-lotto-pink",
-    blue: selected ? "bg-lotto-blue text-white" : "bg-blue-100 text-lotto-blue border-2 border-lotto-blue",
+    purple: selected 
+      ? "bg-lotto-purple text-white dark:shadow-[0_0_15px_rgba(139,92,246,0.5)]" 
+      : "bg-lotto-light-purple text-lotto-purple border-2 border-lotto-purple dark:bg-lotto-purple/20 dark:border-lotto-purple/70",
+    pink: selected 
+      ? "bg-lotto-pink text-white dark:shadow-[0_0_15px_rgba(217,70,239,0.5)]" 
+      : "bg-pink-100 text-lotto-pink border-2 border-lotto-pink dark:bg-lotto-pink/20 dark:border-lotto-pink/70",
+    blue: selected 
+      ? "bg-lotto-blue text-white dark:shadow-[0_0_15px_rgba(14,165,233,0.5)]" 
+      : "bg-blue-100 text-lotto-blue border-2 border-lotto-blue dark:bg-lotto-blue/20 dark:border-lotto-blue/70",
   };
 
   return (
@@ -49,7 +55,8 @@ const LottoBall: React.FC<LottoBallProps> = ({
         colorClasses[actualColor as keyof typeof colorClasses],
         animated && "animate-bounce-in", 
         selected && !animated && "scale-110",
-        onClick && "cursor-pointer hover:scale-105",
+        onClick && "cursor-pointer hover:scale-105 hover:shadow-lg transition-all",
+        "transition-all duration-300",
         className
       )}
       onClick={onClick}

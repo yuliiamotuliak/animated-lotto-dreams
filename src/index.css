@@ -82,8 +82,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    background: linear-gradient(135deg, #f5f0ff 0%, #e6e9ff 100%);
+    @apply bg-background text-foreground transition-colors duration-300;
     min-height: 100vh;
   }
 }
@@ -95,6 +94,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), inset 0 -2px 5px rgba(0, 0, 0, 0.05);
   }
   
+  .dark .lotto-ball {
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1) 30%, rgba(255, 255, 255, 0) 70%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 -2px 5px rgba(255, 255, 255, 0.05);
+  }
+  
   .confetti {
     @apply fixed w-4 h-4 rounded-sm animate-confetti;
     z-index: 50;
@@ -102,6 +106,6 @@
   }
   
   .lotto-gradient {
-    background: linear-gradient(102.3deg, rgba(147,39,143,1) 5.9%, rgba(234,172,232,1) 64%, rgba(246,219,245,1) 89%);
+    @apply bg-gradient-to-br from-lotto-purple via-lotto-pink to-lotto-blue dark:from-lotto-purple/80 dark:via-lotto-pink/80 dark:to-lotto-blue/80;
   }
 }

@@ -1,12 +1,28 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from "react";
+import LottoGame from "@/components/LottoGame";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen pb-16">
+      <header className="bg-white shadow-sm py-6 mb-8">
+        <div className="container mx-auto text-center">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-lotto-purple via-lotto-pink to-lotto-blue bg-clip-text text-transparent">
+            Magic Lotto
+          </h1>
+          <p className="text-muted-foreground mt-2">
+            Pick your lucky numbers and win big!
+          </p>
+        </div>
+      </header>
+      
+      <main>
+        <LottoGame />
+      </main>
+      
+      <footer className="text-center text-sm text-muted-foreground mt-20">
+        <p>© {new Date().getFullYear()} Magic Lotto. This is a demo application.</p>
+      </footer>
     </div>
   );
 };

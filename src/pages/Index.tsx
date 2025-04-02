@@ -1,7 +1,6 @@
 
 import React from "react";
 import LottoGame from "@/components/LottoGame";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { Card, CardContent } from "@/components/ui/card";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -11,16 +10,15 @@ const Index = () => {
   return (
     <div className="min-h-screen pb-8 sm:pb-16 bg-gradient-to-br from-background to-muted transition-colors duration-300">
       <header className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 sm:py-6 mb-4 sm:mb-8 sticky top-0 z-10 transition-colors shadow-md">
-        <div className="container mx-auto flex justify-between items-center px-4">
+        <div className="container mx-auto flex justify-center items-center px-4">
           <div className="text-center">
-            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-lotto-purple via-lotto-pink to-lotto-blue bg-clip-text text-transparent transform perspective-1000 hover:rotate-x-1 transition-transform duration-300">
+            <h1 className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-lotto-purple via-lotto-pink to-lotto-blue bg-clip-text text-transparent transform perspective-1000 hover:rotate-x-1 transition-transform duration-300">
               Magic Lotto
             </h1>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">
-              Pick your lucky numbers and win big!
+            <p className="text-sm sm:text-base text-muted-foreground mt-2 sm:mt-3 max-w-xl mx-auto font-medium italic">
+              Pick your lucky numbers and win big in the ultimate lottery experience!
             </p>
           </div>
-          <ThemeToggle />
         </div>
       </header>
       

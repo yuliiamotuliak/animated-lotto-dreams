@@ -7,11 +7,13 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 interface LottoResultsProps {
   playerNumbers: number[];
+  betAmount: number;
   onPlayAgain: () => void;
 }
 
 const LottoResults: React.FC<LottoResultsProps> = ({
   playerNumbers,
+  betAmount,
   onPlayAgain,
 }) => {
   const [winningNumbers, setWinningNumbers] = useState<number[]>([]);
@@ -103,6 +105,12 @@ const LottoResults: React.FC<LottoResultsProps> = ({
     }
   };
 
+  const calculatePrize = () => {
+    const multipliers = [0, 0, 0, 5, 20, 100, 10000];
+    const multiplier = multipliers[matchedNumbers.length] || 0;
+    return multiplier * betAmount;
+  };
+
   return (
     <div className="w-full max-w-3xl mx-auto text-center">
       {renderConfetti()}
@@ -145,10 +153,23 @@ const LottoResults: React.FC<LottoResultsProps> = ({
             <span>{getPrizeMessage()}</span>
             <Star className="text-yellow-400 ml-2 h-4 w-4 sm:h-5 sm:w-5" />
           </div>
-          <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
-            You matched {matchedNumbers.length} out of 6 numbers
-          </p>
-          <Button onClick={onPlayAgain} size={isMobile ? "default" : "lg"}>
+          
+          <div className="text-sm sm:text-base text-muted-foreground mb-2">
+            <p>You matched {matchedNumbers.length} out of 6 numbers</p>
+            <p className="mt-1">Bet Amount: {(betAmount).toLocaleString()} tokens</p>
+            
+            {calculatePrize() > 0 && (
+              <p className="mt-2 text-green-500 dark:text-green-400 font-bold text-base sm:text-lg">
+                Prize: {calculatePrize().toLocaleString()} tokens
+              </p>
+            )}
+          </div>
+          
+          <Button 
+            onClick={onPlayAgain} 
+            size={isMobile ? "default" : "lg"}
+            className="mt-4 shadow-lg transform hover:-translate-y-1 transition-all duration-300"
+          >
             Play Again
           </Button>
         </div>

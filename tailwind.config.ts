@@ -117,7 +117,26 @@ export default {
 				'bounce-in': 'bounce-in 0.5s ease-out forwards',
 				'rotation': 'rotation 10s linear infinite',
 				'confetti': 'confetti 5s ease-out forwards'
-			}
+			},
+			transformOrigin: {
+				'top-left-3d': 'top left 0',
+			},
+			transitionProperty: {
+				'transform-opacity': 'transform, opacity',
+			},
+			rotate: {
+				'x-1': 'rotateX(1deg)',
+				'y-1': 'rotateY(1deg)',
+				'x-12': 'rotateX(12deg)',
+				'y-12': 'rotateY(12deg)',
+			},
+			transformStyle: {
+				'3d': 'preserve-3d',
+			},
+			perspective: {
+				'1000': '1000px',
+				'2000': '2000px',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

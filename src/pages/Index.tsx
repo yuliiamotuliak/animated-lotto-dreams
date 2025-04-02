@@ -10,10 +10,10 @@ const Index = () => {
   
   return (
     <div className="min-h-screen pb-8 sm:pb-16 bg-gradient-to-br from-background to-muted transition-colors duration-300">
-      <header className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 sm:py-6 mb-4 sm:mb-8 sticky top-0 z-10 transition-colors">
+      <header className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 sm:py-6 mb-4 sm:mb-8 sticky top-0 z-10 transition-colors shadow-md">
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="text-center">
-            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-lotto-purple via-lotto-pink to-lotto-blue bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-lotto-purple via-lotto-pink to-lotto-blue bg-clip-text text-transparent transform perspective-1000 hover:rotate-x-1 transition-transform duration-300">
               Magic Lotto
             </h1>
             <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">
@@ -25,7 +25,7 @@ const Index = () => {
       </header>
       
       <main className="container mx-auto px-2 sm:px-4">
-        <Card className="border border-border/40 shadow-md bg-card/50 backdrop-blur-sm">
+        <Card className="border border-border/40 shadow-xl bg-card/50 backdrop-blur-sm transform perspective-1000 transition-all duration-300 hover:shadow-2xl">
           <CardContent className={isMobile ? "p-3" : "p-6"}>
             <LottoGame />
           </CardContent>

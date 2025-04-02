@@ -7,7 +7,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 interface LottoNumberSelectorProps {
   maxNumbers: number;
   numbersToSelect: number;
-  onSelectionComplete: (selectedNumbers: number[]) => void;
+  onSelectionComplete: (selectedNumbers: number[], betAmount: number) => void;
 }
 
 const LottoNumberSelector: React.FC<LottoNumberSelectorProps> = ({
@@ -16,7 +16,17 @@ const LottoNumberSelector: React.FC<LottoNumberSelectorProps> = ({
   onSelectionComplete,
 }) => {
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
+  const [selectedBetAmount, setSelectedBetAmount] = useState<number>(25000);
   const isMobile = useIsMobile();
+
+  const betAmounts = [
+    { value: 25000, label: "25K" },
+    { value: 50000, label: "50K" },
+    { value: 100000, label: "100K" },
+    { value: 200000, label: "200K" },
+    { value: 500000, label: "500K" },
+    { value: 1000000, label: "1M" },
+  ];
 
   const handleNumberClick = (number: number) => {
     setSelectedNumbers((prev) => {
@@ -77,12 +87,30 @@ const LottoNumberSelector: React.FC<LottoNumberSelectorProps> = ({
         {renderNumbers()}
       </div>
 
+      {/* Bet Amount Selector */}
+      <div className="mb-6">
+        <h3 className="text-center text-sm sm:text-base font-medium mb-3">Select Bet Amount</h3>
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+          {betAmounts.map((amount) => (
+            <Button
+              key={amount.value}
+              variant={selectedBetAmount === amount.value ? "default" : "outline"}
+              onClick={() => setSelectedBetAmount(amount.value)}
+              className="relative overflow-hidden transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
+              size={isMobile ? "sm" : "default"}
+            >
+              {amount.label}
+            </Button>
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 mt-4">
         <Button
           variant="outline"
           onClick={() => setSelectedNumbers([])}
           disabled={selectedNumbers.length === 0}
-          className="w-full sm:w-auto"
+          className="w-full sm:w-auto shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
           size={isMobile ? "sm" : "default"}
         >
           Clear
@@ -90,15 +118,15 @@ const LottoNumberSelector: React.FC<LottoNumberSelectorProps> = ({
         <Button
           variant="outline"
           onClick={handleRandomSelection}
-          className="w-full sm:w-auto"
+          className="w-full sm:w-auto shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
           size={isMobile ? "sm" : "default"}
         >
           Quick Pick
         </Button>
         <Button
-          onClick={() => onSelectionComplete(selectedNumbers)}
+          onClick={() => onSelectionComplete(selectedNumbers, selectedBetAmount)}
           disabled={selectedNumbers.length !== numbersToSelect}
-          className="w-full sm:w-auto"
+          className="w-full sm:w-auto shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
           size={isMobile ? "sm" : "default"}
         >
           Submit Numbers

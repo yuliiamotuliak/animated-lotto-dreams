@@ -15,7 +15,8 @@ const TokenAddress: React.FC<TokenAddressProps> = ({ className }) => {
   const tokenAddress = "dsdfsd...sdfsdfsd";
   const fullTokenAddress = "dsdfsd8f7sd8f7sd8f7sd8f7sd8f7sdfsdfsd";
   
-  const handleCopy = () => {
+  const handleCopy = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default to avoid page refresh
     navigator.clipboard.writeText(fullTokenAddress);
     toast.success("Token address copied to clipboard!", {
       duration: 2000,

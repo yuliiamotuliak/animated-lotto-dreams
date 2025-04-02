@@ -126,6 +126,10 @@
     perspective: 1000px;
   }
   
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+  
   .rotate-x-1 {
     transform: rotateX(1deg);
   }
@@ -142,6 +146,22 @@
     transform-style: preserve-3d;
   }
   
+  /* Card Enhancements */
+  .card-3d {
+    @apply relative rounded-xl overflow-hidden transform-style-3d transition-all duration-300;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-3d:before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-lotto-purple/10 via-lotto-pink/5 to-lotto-blue/10 z-10 opacity-0 transition-opacity duration-300;
+    pointer-events: none;
+  }
+  
+  .card-3d:hover:before {
+    @apply opacity-100;
+  }
+  
   /* Add fade-in animation */
   @keyframes fadeIn {
     from {
@@ -154,5 +174,25 @@
   
   .animate-fade-in {
     animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Button enhancements */
+  .btn-3d {
+    @apply relative overflow-hidden rounded-lg transition-all duration-300 shadow-md;
+    transform-style: preserve-3d;
+  }
+  
+  .btn-3d:before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 transition-opacity duration-300;
+  }
+  
+  .btn-3d:hover:before {
+    @apply opacity-100;
+  }
+  
+  .btn-3d:active {
+    transform: translateY(2px);
+    @apply shadow-sm;
   }
 }

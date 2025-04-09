@@ -1,20 +1,45 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 import { toast } from "sonner";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // After mounting, we can access the theme
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleThemeChange = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
+    // Use resolvedTheme for more reliable theme detection
+    const currentTheme = mounted ? resolvedTheme : "system";
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    
     setTheme(newTheme);
+    console.log(`Theme switched to: ${newTheme}`);
+    
     toast.success(`Switched to ${newTheme} mode!`, {
       duration: 2000,
     });
   };
+
+  // Don't render anything until mounted to avoid hydration mismatch
+  if (!mounted) {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        className="rounded-full w-10 h-10 bg-background/30 backdrop-blur-sm border border-border/30 hover:bg-accent/20 transition-all duration-300 transform hover:scale-105"
+        aria-label="Loading theme toggle"
+      >
+        <div className="h-5 w-5 animate-pulse bg-foreground/20 rounded-full" />
+      </Button>
+    );
+  }
 
   return (
     <Button
